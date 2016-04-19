@@ -1,9 +1,7 @@
 import {EventEmitter} from 'fbemitter';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import PDPCONSTANTS from '../constants';
-import Price from '../components/Price';
-import Carousel from '../components/ProductCarousel';
-import Notification from '../components/Notification';
+import sizeStore from './sizeStore';
 
 const CHANGE_EVENT = 'swatchSelected';
 
@@ -23,12 +21,13 @@ let swatchStore = {
   }
 };
  
-AppDispatcher.register((action) => {
+swatchStore.dispatchToken = AppDispatcher.register((action) => {
 
   switch (action.type) {
 
     case PDPCONSTANTS.SWATCH_CLICKED:
-      swatchStore.setData(action.swatch.value);
+      swatchStore.setData(action.swatch);
+      sizeStore.setData(undefined);
       __emitter.emit(CHANGE_EVENT);
       break;
       

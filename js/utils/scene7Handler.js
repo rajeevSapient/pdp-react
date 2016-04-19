@@ -7,22 +7,25 @@ const scene7Handler = {
 
 	makerequest(url){
 		let script = document.createElement("script");
-	    script.src = url + "handler=?";
+	    script.src = url;
     	document.head.appendChild(script);
 	},
 
 	setImageMap(data, imageSetId){
+		console.log("setImageMap");
 		this.imagesetMap[imageSetId] = data;
-		PDPAction.refreshCarousel(data);
+		PDPAction.refreshCarousel(data, false);
 	},
 
 	scene7Proxy(url, imageSetId){
+		console.log("scene7Proxy");
 		if(this.imagesetMap[imageSetId]){
-			PDPAction.refreshCarousel(this.imagesetMap[imageSetId]);
+			return this.imagesetMap[imageSetId];
+			// PDPAction.refreshCarousel(this.imagesetMap[imageSetId], true);
 		}else{
 			this.makerequest(url);
 		}
-	}
+	},
 }
 
 export default scene7Handler;

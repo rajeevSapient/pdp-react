@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import scene7Service from '../utils/scene7Handler';
 import store from '../store/carouselStore';
+import swatchStore from '../store/swatchStore';
 
 export default class ProductCarousel extends Component{
 
@@ -9,21 +10,40 @@ export default class ProductCarousel extends Component{
 		this.state={
 			imageMap: []
 		};
+		this.makeImageRequest();
+		
+	}
+
+	makeImageRequest() {
+		
+		console.log("request made");
+
+		let url = swatchStore.getData() ? swatchStore.getData().dataset.imageseturl : this.props.defaultImagesetURL,
+			imageSetId = swatchStore.getData() ? swatchStore.getData().dataset.imagesetid : this.props.defaultImagesetId;
+
+		let images = scene7Service.scene7Proxy(url, imageSetId);
+
+		//hack to contain dispatch error
+		if(images !== undefined){
+			this.refresh(images);
+		}
 	}
 
 	componentWillMount(){
-		scene7Service.scene7Proxy(this.props.defaultImagesetURL, this.props.defaultImagesetId);
-	    this.pdpSubscription = store.addListener(() => this.refresh());
+		
+	    this.pdpSubscriptions = [swatchStore.addListener(() => this.makeImageRequest()), store.addListener(() => this.refresh())];
+
 	}
 
-	refresh(){
+	refresh(images){
+		console.log("refreshing carousel");
 		this.setState({
-			imageMap: store.getData()
+			imageMap: images || store.getData()
 		});
 	}
 
 	componentWillUnmount() {
-	    this.pdpSubscription.remove();
+	    this.pdpSubscriptions.remove();
 	}
 
 	render() {
@@ -33,7 +53,7 @@ export default class ProductCarousel extends Component{
 		});
 		 
 		 return(
-            <div className="col-md-4">
+            <div className="col-md-4 pheight">
 		 		{images}
 		 	</div>
 		 );

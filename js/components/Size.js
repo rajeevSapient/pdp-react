@@ -1,31 +1,59 @@
 import React, {Component} from 'react';
+import PDPAction from '../action/PdpAction';
+import store from '../store/sizeStore';
+import swatchStore from '../store/swatchStore';
 
 export default class Size extends Component{
+	
 	constructor(){
 		super(...arguments);
 		this.state = {
-			size: [{id: 1, label: '30'}, {id: 2, label: '32'}],
+			size: ['32','33','34','35'],
 			selectedSize: '',
-			selectedSizeLabel: 'Select'
+			selectedSizeLabel: 'Select',
+			swatchSelected: false
 		};
 		this.sizeClick = this.sizeClick.bind(this);
 	}
+
+	filterSize(){
+	  	let swatchData = this.props.swatchObj[swatchStore.getData().value], availableSizes = [];
+	  	Object.keys(swatchData.sizes).map((key) => availableSizes.push(key));
+	  	this.setState({
+	  		size: availableSizes,
+	  		selectedSize: '',
+  			selectedSizeLabel: 'Select',
+  			swatchSelected: true
+	  	});
+  	}
+
+	componentDidMount(){
+	    this.pdpSubscription = swatchStore.addListener(() => this.filterSize());
+  	}
+
+  	componentWillUnmount(){
+    	this.pdpSubscription.remove();
+  	}
+
 	sizeClick(e){
-		this.setState({
-			selectedSizeLabel: 'Selected',
-			selectedSize: e.target.value
-		});
+		if(this.state.swatchSelected === true){
+			this.setState({
+				selectedSizeLabel: 'Selected',
+				selectedSize: e.target.value
+			});
+			PDPAction.sizeClick(e.target.value);
+		}
 	}
+
 	render(){
 		return(
 				<div className="row">
 					<hr/>
 	      			<p>{this.state.selectedSizeLabel} Size: {this.state.selectedSize}</p>
-	      			{this.state.size.map(function(size){
+	      			{this.state.size.map(function(size, index){
 	      				return(
-	      					<div key={size.id}>
-	      						<input type="radio" name="size" onClick= {this.sizeClick} id={size.label}size value= {size.label}/>
-	      						<label htmlFor={size.label}size>{size.label}</label>
+	      					<div key={index}>
+	      						<label>{size}<input type="radio" name="size" onClick= {this.sizeClick} value= {size}/></label>
 	      					</div>
 	      					);
 	      			}, this)}

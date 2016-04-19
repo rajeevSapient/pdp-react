@@ -1,24 +1,51 @@
 import React, {Component} from 'react';
+import addtobagStore from '../store/addtobagStore';
+import swatchStore from '../store/swatchStore';
 
 export default class Notification extends Component {
+	
 	constructor() {
 		super(...arguments);
-		this.show = this.show.bind(this);
-		this.state = {
+		this.state={
 			msg: '',
-		};
+			class: 'alert alert-success',
+			display: 'invisible'
+		}
 	}
 
-	show(msg) {
+	getClass(error){
+		return error === true ? 'alert alert-danger' : 'alert alert-success';
+	}
+
+	hideNotification(){
 		this.setState({
-			msg: 'temp msg',
+			display: 'invisible'
 		});
 	}
 
-	render() {
-		return ( < h1 > {
-				this.state.msg
-			} < /h1>);
-
-		}
+	componentDidMount() {
+	    this.pdpSubscription = [addtobagStore.addListener(() => this.update()), swatchStore.addListener(() => this.hideNotification())];
 	}
+
+	componentWillUnmount() {
+	    this.pdpSubscription.remove();
+	}
+
+	update(){
+		this.setState({
+			msg: addtobagStore.getData().msg,
+			class: this.getClass(addtobagStore.getData().error),
+			display: ''
+		});
+	}
+
+	render(){
+		return(
+			<div className={'row '+ this.state.display}>
+				<div className={this.state.class}>
+					{this.state.msg}
+				</div>
+			</div>
+		);
+	}
+}

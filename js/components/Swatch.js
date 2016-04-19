@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PDPAction from '../action/PdpAction';
-// import PdpStore from '../store/PdpStore';
 
 export default class Swatch extends Component{
 
@@ -15,7 +14,6 @@ export default class Swatch extends Component{
   	}
 
   	swatchClick(e) {
-        // console.log("swatch clicked ", e.target.value);
         this.setState({
           selectedSwatch: e.target.value,
           label: 'Selected color'
@@ -24,10 +22,12 @@ export default class Swatch extends Component{
     	}
 
   	render() {
-      let swatchNode = this.props.swatchObj.swatch.map(function (swatch) {
+      let obj = this.props.swatchObj;
+      let swatchNode = Object.keys(obj).map(function (key, index) {
+        let swatch = obj[key];
         return (
-                  <div key={swatch.id}>
-    						    <input type="radio" onClick={this.swatchClick} name="color" id={swatch.colorName} value={swatch.colorName} data-imageset-id={swatch.imageset}/>
+                  <div key={index} className="col-md-1 col">
+    						    <input type="radio" onClick={this.swatchClick} name="color" id={swatch.colorName} value={swatch.colorName} data-imagesetid={swatch.imagesetId} data-imageseturl={swatch.imageSetUrl}/>
           					<label htmlFor={swatch.colorName}><img src={swatch.imgSrc} alt={swatch.colorName} color Belted Trench Shirt /></label>
           				</div>
         );

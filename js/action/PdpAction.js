@@ -5,14 +5,26 @@ let PdpAction = {
   swatchClicked(swatchEl) {
     AppDispatcher.dispatch({
         type: pdpConstants.SWATCH_CLICKED,
-        swatch: swatchEl,
+        swatch: swatchEl
       });
   },
-  refreshCarousel(data){
+  refreshCarousel(data, cache){
   	AppDispatcher.dispatch({
   		type: pdpConstants.UPDATE_CAROUSEL,
-  		data: data
+  		data,
+      cache
   	});
-  }
+  },
+  addtobag(){
+    AppDispatcher.dispatch({
+      type: pdpConstants.ADDTOBAG
+    });
+  },
+  sizeClick(sizeEl){
+    AppDispatcher.dispatch({
+        type: pdpConstants.SIZE_CLICKED,
+        sizeEl: sizeEl
+    });
+  },
 };
 export default PdpAction;

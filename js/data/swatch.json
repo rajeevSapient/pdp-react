@@ -1,14 +1,12 @@
 {  
    "swatch":[  
       {  
-         "id":"1",
          "colorName":"Stone",
          "imgSrc":"//asset2.marksandspencer.com/is/image/mands/SD_01_T42_6528_SS_X_EC_88?$PDP_SWL_STD$",
          "imageSetUrl":"//asset1.cxnmarksandspencer.com/is/image/mands/T42_6528_SS_IS?req=imageset,json&id=T42_6528_SS_IS",
          "imagesetId": "T42_6528_SS_IS"
       },
       {  
-         "id":"2",
          "colorName":"Black",
          "imgSrc":"//asset1.marksandspencer.com/is/image/mands/SD_01_T42_6528_Y0_X_EC_88?$PDP_SWL_STD$",
          "imageSetUrl":"//asset1.cxnmarksandspencer.com/is/image/mands/T42_6528_Y0_IS?req=imageset,json&id=T42_6528_Y0_IS",
