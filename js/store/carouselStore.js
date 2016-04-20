@@ -25,7 +25,6 @@ let CarouselStore = {
 };
 
 CarouselStore.dispatchToken = AppDispatcher.register((action) => {
-console.log("CarouselStore registry ");
   switch (action.type) {
 
     case PDPCONSTANTS.UPDATE_CAROUSEL:

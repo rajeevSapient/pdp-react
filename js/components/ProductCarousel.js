@@ -16,8 +16,6 @@ export default class ProductCarousel extends Component{
 
 	makeImageRequest() {
 		
-		console.log("request made");
-
 		let url = swatchStore.getData() ? swatchStore.getData().dataset.imageseturl : this.props.defaultImagesetURL,
 			imageSetId = swatchStore.getData() ? swatchStore.getData().dataset.imagesetid : this.props.defaultImagesetId;
 
@@ -36,10 +34,11 @@ export default class ProductCarousel extends Component{
 	}
 
 	refresh(images){
-		console.log("refreshing carousel");
+
 		this.setState({
 			imageMap: images || store.getData()
 		});
+
 	}
 
 	componentWillUnmount() {

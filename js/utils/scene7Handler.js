@@ -12,13 +12,11 @@ const scene7Handler = {
 	},
 
 	setImageMap(data, imageSetId){
-		console.log("setImageMap");
 		this.imagesetMap[imageSetId] = data;
 		PDPAction.refreshCarousel(data, false);
 	},
 
 	scene7Proxy(url, imageSetId){
-		console.log("scene7Proxy");
 		if(this.imagesetMap[imageSetId]){
 			return this.imagesetMap[imageSetId];
 			// PDPAction.refreshCarousel(this.imagesetMap[imageSetId], true);

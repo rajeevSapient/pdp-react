@@ -14,7 +14,7 @@ class App extends Component {
           <div className="row">Home / Women /Dresses</div>
             <Notification />
             <div className="row">
-              <!-- <ProductCarousel defaultImagesetId={this.props.defaultImagesetId} defaultImagesetURL={this.props.defaultImagesetURL}/> -->
+              <ProductCarousel defaultImagesetId={this.props.defaultImagesetId} defaultImagesetURL={this.props.defaultImagesetURL}/>
               <Productinfo swatchObj={this.props.swatchObj}/>
         </div>
       </div>

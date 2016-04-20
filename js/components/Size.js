@@ -11,7 +11,8 @@ export default class Size extends Component{
 			size: ['32','33','34','35'],
 			selectedSize: '',
 			selectedSizeLabel: 'Select',
-			swatchSelected: false
+			swatchSelected: false,
+			selectedSizeClass: ''
 		};
 		this.sizeClick = this.sizeClick.bind(this);
 	}
@@ -52,8 +53,8 @@ export default class Size extends Component{
 	      			<p>{this.state.selectedSizeLabel} Size: {this.state.selectedSize}</p>
 	      			{this.state.size.map(function(size, index){
 	      				return(
-	      					<div key={index}>
-	      						<label>{size}<input type="radio" name="size" onClick= {this.sizeClick} value= {size}/></label>
+	      					<div key={index} className="sizefloat">
+	      						<label><span>{size}</span><input type="radio" name="size" onClick= {this.sizeClick} value= {size}/></label>
 	      					</div>
 	      					);
 	      			}, this)}

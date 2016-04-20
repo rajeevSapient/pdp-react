@@ -47,7 +47,7 @@ export default class Quantity extends Component{
 				<div className="col-md-8">
                         <p>
                            <button type="button" className="btn btn-default" onClick={this.decrement}><strong>-</strong></button>
-                           <label>Qty<input className="qty" name="qty" value={this.state.quantity} readOnly/></label>
+                           <label className="labelpadding">Qty<input className="qty" name="qty" value={this.state.quantity} readOnly/></label>
                            <button type="button" className="btn btn-default" onClick={this.increment}><strong>+</strong></button>
                         </p>
                 </div>
